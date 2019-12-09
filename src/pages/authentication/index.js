@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import { CurrentUserContext } from '../../context/currentUser';
+import BackendErrorMessages from './backendErrorMessages';
 
 const Authentication = props => {
   //Log In/Sign up page conditions
@@ -20,6 +22,10 @@ const Authentication = props => {
   console.log('useFetch', isLoading, error, response);
   const [token, setToken] = useLocalStorage('token');
   console.log('token', token);
+  const [currentUserState, setCurrentUserState] = useContext(
+    CurrentUserContext
+  );
+  console.log('currentUserState', currentUserState);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -37,7 +43,13 @@ const Authentication = props => {
     if (!response) return;
     setToken(response.user.token);
     setSubmitted(true);
-  }, [response, setToken]);
+    setCurrentUserState(state => ({
+      ...state,
+      isLoggedIn: true,
+      isLoading: false,
+      currentUser: response.user
+    }));
+  }, [response, setToken, setCurrentUserState]);
 
   if (submitted) {
     return <Redirect to="/" />;
@@ -53,9 +65,7 @@ const Authentication = props => {
               <Link to={descriptionLink}>{descriptionText}</Link>
             </p>
 
-            {/* <ul className="error-messages">
-              <li>That email is already taken</li>
-            </ul> */}
+            {error && <BackendErrorMessages backendErrors={error.errors} />}
 
             <form onSubmit={handleSubmit}>
               {!isLogin && (

@@ -4,14 +4,17 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import Routes from './routes';
 import Navbar from './components/Navbar';
+import { CurrentUserProvider } from './context/currentUser';
 
 const App = () => {
   return (
     <>
-      <Router>
-        <Navbar />
-        <Routes />
-      </Router>
+      <CurrentUserProvider>
+        <Router>
+          <Navbar />
+          <Routes />
+        </Router>
+      </CurrentUserProvider>
     </>
   );
 };
