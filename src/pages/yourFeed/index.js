@@ -11,14 +11,14 @@ import Loading from '../../components/Loading';
 import Error from '../../components/Error';
 import Banner from '../../components/Banner';
 
-const GlobalFeed = ({ location, match }) => {
+const YourFeed = ({ location, match }) => {
   const { offset, currentPage } = getPaginator(location.search);
   const stringifiedParams = stringify({
     limit,
     offset
   });
   const currentUrl = match.url;
-  const apiUrl = `/articles?${stringifiedParams}`;
+  const apiUrl = `/articles/feed?${stringifiedParams}`;
   const [{ response, error, isLoading }, doFetch] = useFetch(apiUrl);
   useEffect(() => {
     doFetch();
@@ -55,4 +55,4 @@ const GlobalFeed = ({ location, match }) => {
   );
 };
 
-export default GlobalFeed;
+export default YourFeed;

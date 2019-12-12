@@ -16,9 +16,9 @@ const PopularTags = () => {
   if (error) return <Error />;
 
   return (
-    <div class="sidebar">
+    <div className="sidebar">
       <p>Popular Tags</p>
-      <div class="tag-list">
+      <div className="tag-list">
         {response.tags.map(tag => (
           <Link to={`/tags/${tag}`} className="tag-pill tag-default" key={tag}>
             {tag}
