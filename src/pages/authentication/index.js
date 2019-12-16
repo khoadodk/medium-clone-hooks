@@ -22,10 +22,7 @@ const Authentication = props => {
   console.log('useFetch', isLoading, error, response);
   const [token, setToken] = useLocalStorage('token');
   console.log('token', token);
-  const [currentUserState, setCurrentUserState] = useContext(
-    CurrentUserContext
-  );
-  console.log('currentUserState', currentUserState);
+  const [dispatch] = useContext(CurrentUserContext);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -38,18 +35,12 @@ const Authentication = props => {
     });
   };
 
-  //Store token to local storage
   useEffect(() => {
     if (!response) return;
     setToken(response.user.token);
     setSubmitted(true);
-    setCurrentUserState(state => ({
-      ...state,
-      isLoggedIn: true,
-      isLoading: false,
-      currentUser: response.user
-    }));
-  }, [response, setToken, setCurrentUserState]);
+    dispatch({ type: 'SET_AUTHORIZED', payload: response.user });
+  }, [response, setToken, dispatch]);
 
   if (submitted) {
     return <Redirect to="/" />;
