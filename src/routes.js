@@ -5,6 +5,8 @@ import GlobalFeed from './pages/globalFeed';
 import YourFeed from './pages/yourFeed';
 import TagFeed from './pages/tagFeed';
 import Article from './pages/article';
+import CreateArticle from './pages/createArticle';
+import EditArticle from './pages/editArticle';
 import Authentication from './pages/authentication';
 
 const Routes = () => {
@@ -13,6 +15,8 @@ const Routes = () => {
       <Route path="/" component={GlobalFeed} exact />
       <Route path="/feed" component={YourFeed} exact />
       <Route path="/tags/:slug" component={TagFeed} />
+      <Route path="/articles/new" component={CreateArticle} />
+      <Route path="/articles/:slug/edit" component={EditArticle} />
       <Route path="/articles/:slug" component={Article} />
       <Route path="/login" component={Authentication} />
       <Route path="/register" component={Authentication} />

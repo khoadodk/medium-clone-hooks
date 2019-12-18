@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import { getPaginator, limit } from '../../utils';
 import { stringify } from 'query-string';
 
-import Feed from '../../components/Feed';
 import useFetch from '../../hooks/useFetch';
+
+import Feed from '../../components/Feed';
 import Pagination from '../../components/Pagination';
 import PopularTags from '../../components/PopularTags';
 import FeedToggler from '../../components/FeedToggler';
@@ -23,7 +24,6 @@ const YourFeed = ({ location, match }) => {
   useEffect(() => {
     doFetch();
   }, [currentPage, doFetch]);
-
   return (
     <div className="home-page">
       <Banner />

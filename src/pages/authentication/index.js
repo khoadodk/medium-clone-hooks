@@ -3,7 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { CurrentUserContext } from '../../context/currentUser';
-import BackendErrorMessages from './backendErrorMessages';
+import BackendErrorMessages from '../../components/backendErrorMessages';
 
 const Authentication = props => {
   //Log In/Sign up page conditions
