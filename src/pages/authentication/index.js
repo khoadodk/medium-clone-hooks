@@ -22,7 +22,7 @@ const Authentication = props => {
   console.log('useFetch', isLoading, error, response);
   const [token, setToken] = useLocalStorage('token');
   console.log('token', token);
-  const [dispatch] = useContext(CurrentUserContext);
+  const [, dispatch] = useContext(CurrentUserContext);
 
   const handleSubmit = event => {
     event.preventDefault();

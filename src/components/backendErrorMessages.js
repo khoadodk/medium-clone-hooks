@@ -1,7 +1,7 @@
 import React from 'react';
 const BackendErrorMessages = ({ backendErrors }) => {
   const errorMessages = Object.keys(backendErrors).map(name => {
-    const messages = backendErrors[name].join(' and ');
+    const messages = backendErrors[name].join(' or ');
     return `${name} ${messages}`;
   });
   return (
