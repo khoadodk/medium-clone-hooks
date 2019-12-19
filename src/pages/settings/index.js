@@ -38,6 +38,7 @@ const Settings = () => {
 
   useEffect(() => {
     if (!currentUserState.currentUser) return;
+
     const updatedUser = currentUserState.currentUser;
     setUsername(updatedUser.username);
     setImage(updatedUser.image);
