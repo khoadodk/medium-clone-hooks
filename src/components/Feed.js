@@ -4,7 +4,6 @@ import TagList from './TagList';
 import AddToFavorites from './AddToFavorites';
 
 const Feed = ({ articles }) => {
-  console.log(articles);
   return (
     <div>
       {articles.map((article, index) => (

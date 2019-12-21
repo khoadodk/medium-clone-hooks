@@ -3,8 +3,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import useFetch from '../../hooks/useFetch';
 import { CurrentUserContext } from '../../context/currentUser';
 import BackendErrorMessages from '../../components/backendErrorMessages';
-import useLocalStorage from '../../hooks/useLocalStorage';
-import { Redirect } from 'react-router-dom';
 
 const Settings = () => {
   const [username, setUsername] = useState('');
@@ -12,9 +10,8 @@ const Settings = () => {
   const [bio, setBio] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const [currentUserState, dispatch] = useContext(CurrentUserContext);
-  const [, setToken] = useLocalStorage('token');
-  const [isSuccessfulLogout, setIsSuccessfulLogout] = useState(false);
 
   const apiUrl = '/user';
   const [{ response, error }, doFetch] = useFetch(apiUrl);
@@ -51,15 +48,6 @@ const Settings = () => {
     if (!response) return;
     dispatch({ type: 'SET_AUTHORIZED', payload: response.user });
   }, [response, dispatch]);
-
-  const logout = event => {
-    event.preventDefault();
-    setToken('');
-    dispatch({ type: 'SET_UNAUTHORIZED' });
-    setIsSuccessfulLogout(true);
-  };
-
-  if (isSuccessfulLogout) return <Redirect to="/" />;
 
   return (
     <div className="settings-page">
@@ -123,13 +111,6 @@ const Settings = () => {
                 </button>
               </fieldset>
             </form>
-            <hr />
-            <button
-              className="btn btn-outline-danger pull-xs-left"
-              onClick={logout}
-            >
-              Click here to log out
-            </button>
           </div>
         </div>
       </div>

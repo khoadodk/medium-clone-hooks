@@ -8,7 +8,7 @@ const UserProfile = ({ match, location }) => {
   const slug = match.params.slug;
   const apiUrl = `/profiles/${slug}`;
   const [{ response }, doFetch] = useFetch(apiUrl);
-  console.log(response);
+
   console.log('match', match);
   console.log('location', location);
 

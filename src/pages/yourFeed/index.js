@@ -24,6 +24,7 @@ const YourFeed = ({ location, match }) => {
   useEffect(() => {
     doFetch();
   }, [currentPage, doFetch]);
+
   return (
     <div className="home-page">
       <Banner />

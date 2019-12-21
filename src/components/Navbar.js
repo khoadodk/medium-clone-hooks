@@ -1,13 +1,25 @@
-import React, { useContext } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { NavLink, Link, Redirect } from 'react-router-dom';
 
 import { CurrentUserContext } from '../context/currentUser';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 const Navbar = () => {
-  const [currentUserState] = useContext(CurrentUserContext);
+  const [currentUserState, dispatch] = useContext(CurrentUserContext);
   const userImage =
     (currentUserState.isLoggedIn && currentUserState.currentUser.image) ||
     'https://static.productionready.io/images/smiley-cyrus.jpg';
+
+  const [, setToken] = useLocalStorage('token');
+  const [isSuccessfulLogout, setIsSuccessfulLogout] = useState(false);
+
+  const logout = event => {
+    event.preventDefault();
+    setToken('');
+    dispatch({ type: 'SET_UNAUTHORIZED' });
+    setIsSuccessfulLogout(true);
+  };
+  if (isSuccessfulLogout) return <Redirect to="/" />;
 
   return (
     <nav className="navbar navbar-light">
@@ -43,6 +55,14 @@ const Navbar = () => {
                   <img className="user-pic" src={userImage} alt="" />
                   &nbsp; {currentUserState.currentUser.username}
                 </NavLink>
+              </li>
+              <li className="nav-item">
+                <button
+                  className="btn btn-outline-danger pull-xs-left"
+                  onClick={logout}
+                >
+                  Log Out
+                </button>
               </li>
             </>
           )}
