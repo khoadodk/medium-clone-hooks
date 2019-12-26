@@ -4,7 +4,6 @@ import useFetch from '../hooks/useFetch';
 const AddToFavorites = ({ isFavorited, favoritesCount, articleSlug }) => {
   const apiUrl = `/articles/${articleSlug}/favorite`;
   const [{ response }, doFetch] = useFetch(apiUrl);
-
   const isLiked = isFavorited ? 'btn-primary' : 'btn-outline-primary';
 
   const isFavoritedWithResponse = response

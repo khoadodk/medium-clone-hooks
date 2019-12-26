@@ -3,14 +3,12 @@ import { NavLink } from 'react-router-dom';
 
 import useFetch from '../../hooks/useFetch';
 import UserArticles from '../../components/UserArticles';
+import Following from '../../components/Following';
 
 const UserProfile = ({ match, location }) => {
   const slug = match.params.slug;
   const apiUrl = `/profiles/${slug}`;
   const [{ response }, doFetch] = useFetch(apiUrl);
-
-  console.log('match', match);
-  console.log('location', location);
 
   useEffect(() => {
     doFetch();
@@ -27,10 +25,11 @@ const UserProfile = ({ match, location }) => {
               <img src={response.profile.image} className="user-img" alt="" />
               <h4>{response.profile.username}</h4>
               <p>{response.profile.bio}</p>
-              <button className="btn btn-sm btn-outline-secondary action-btn">
-                <i className="ion-plus-round"></i>
-                &nbsp; Follow {response.profile.username}
-              </button>
+
+              <Following
+                isFollowing={response.profile.following}
+                profileUsername={response.profile.username}
+              />
             </div>
           </div>
         </div>
